@@ -1,5 +1,6 @@
 import { db } from "./db";
 import { getSelf } from "./auth-service";
+import { users } from "@clerk/nextjs/api";
 
 export const getRecommended = async () => {
   // await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -20,9 +21,22 @@ export const getRecommended = async () => {
         createdAt: "desc",
       },
       where: {
-        NOT: {
-          id: userId,
-        },
+        AND: [
+          {
+            NOT: {
+              id: userId,
+            },
+          },
+          {
+            NOT: {
+              followedBy: {
+                some: {
+                  followerId: userId,
+                },
+              },
+            },
+          },
+        ],
       },
     });
   } else {
