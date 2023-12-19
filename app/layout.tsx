@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { dark } from "@clerk/themes";
+import { Toaster } from "sonner";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -27,6 +28,7 @@ export default function RootLayout({
             forcedTheme="dark"
             storageKey="next-twich-theme"
           >
+            <Toaster theme="light" position="bottom-center" />
             {children}
           </ThemeProvider>
         </body>
