@@ -1,5 +1,6 @@
 "use client";
 
+import { onBlock, onUnblock } from "@/actions/block";
 import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
@@ -33,9 +34,25 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
 
   const onCLick = isFollowing ? handleUnFollow : handleFollow;
 
+  const handleBlock = () => {
+    startTransition(() => {
+      onUnblock(userId)
+        .then((data) =>
+          toast.success(`Unblocked the user ${data.blocked.username}`)
+        )
+        .catch(() => toast.error("Failed to block something went wrong!"));
+    });
+  };
+
   return (
-    <Button disabled={isPending} onClick={onCLick} variant="primary">
-      {isFollowing ? "Unfollow" : "Follow"}
-    </Button>
+    <>
+      <Button disabled={isPending} onClick={onCLick} variant="primary">
+        {isFollowing ? "Unfollow" : "Follow"}
+      </Button>
+
+      <Button onClick={handleBlock} disabled={isPending}>
+        Block
+      </Button>
+    </>
   );
 };
