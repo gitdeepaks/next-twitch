@@ -24,7 +24,7 @@ model User {
   blockings Block[] @relation(name: "Blocking")
   blockedBy Block[] @relation(name: "BlockedBy")
 
-  streams Stream?
+  stream Stream?
 
 
   createdAt DateTime @default(now( ))
