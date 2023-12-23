@@ -10,7 +10,7 @@ export const getFollowedUsers = async () => {
       where: {
         followerId: self.id,
         following: {
-          blockings: {
+          blocking: {
             none: {
               blockedId: self.id,
             },
@@ -18,7 +18,11 @@ export const getFollowedUsers = async () => {
         },
       },
       include: {
-        following: true,
+        following: {
+          include: {
+            stream: true,
+          },
+        },
       },
     });
 

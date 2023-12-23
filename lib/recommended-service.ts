@@ -1,25 +1,20 @@
-import { db } from "./db";
-import { getSelf } from "./auth-service";
-import { users } from "@clerk/nextjs/api";
+import { db } from "@/lib/db";
+import { getSelf } from "@/lib/auth-service";
 
 export const getRecommended = async () => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
-
   let userId;
 
   try {
     const self = await getSelf();
     userId = self.id;
-  } catch (error) {
+  } catch {
     userId = null;
   }
 
   let users = [];
+
   if (userId) {
     users = await db.user.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
       where: {
         AND: [
           {
@@ -38,7 +33,7 @@ export const getRecommended = async () => {
           },
           {
             NOT: {
-              blockings: {
+              blocking: {
                 some: {
                   blockedId: userId,
                 },
@@ -47,13 +42,45 @@ export const getRecommended = async () => {
           },
         ],
       },
+      include: {
+        stream: {
+          select: {
+            isLive: true,
+          },
+        },
+      },
+      orderBy: [
+        {
+          stream: {
+            isLive: "desc",
+          },
+        },
+        {
+          createdAt: "desc",
+        },
+      ],
     });
   } else {
     users = await db.user.findMany({
-      orderBy: {
-        createdAt: "desc",
+      include: {
+        stream: {
+          select: {
+            isLive: true,
+          },
+        },
       },
+      orderBy: [
+        {
+          stream: {
+            isLive: "desc",
+          },
+        },
+        {
+          createdAt: "desc",
+        },
+      ],
     });
   }
+
   return users;
 };
