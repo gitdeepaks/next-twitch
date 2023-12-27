@@ -1,4 +1,3 @@
-import { UserButton } from "@clerk/nextjs";
 import { Results, ResultsSkeleton } from "../_components/results";
 import { Suspense } from "react";
 export default function Home() {
