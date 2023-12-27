@@ -12,9 +12,28 @@ import { Header, HeaderSkeleton } from "./header";
 import { InfoCard } from "./info-card";
 import { AboutCard } from "./about-card";
 
+type CustomStream = {
+  id: string;
+  name: string;
+  isLive: boolean;
+  thumbnailUrl: string | null;
+  isChatEnabled: boolean;
+  isChatDelayed: boolean;
+  isChatFollowersOnly: boolean;
+};
+
+type CustomUser = {
+  id: string;
+  username: string;
+  bio: string | null;
+  stream: CustomStream | null;
+  imageUrl: string;
+  _count: { followedBy: number };
+};
+
 interface StreamPlayerProps {
-  user: User & { stream: Stream | null; _count: { followedBy: number } };
-  stream: Stream;
+  user: CustomUser;
+  stream: CustomStream;
   isFollowing: boolean;
 }
 

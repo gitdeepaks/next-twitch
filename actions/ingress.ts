@@ -23,7 +23,7 @@ const roomService = new RoomServiceClient(
 
 const ingressClient = new IngressClient(process.env.LIVEKIT_API_URL!);
 
-export const resetIngress = async (hostIdentity: string) => {
+export const resetIngressess = async (hostIdentity: string) => {
   //
   const ingresses = await ingressClient.listIngress({
     roomName: hostIdentity,
@@ -47,7 +47,7 @@ export const createIngress = async (ingressType: IngressInput) => {
 
   // reset prevoius ingress
 
-  await resetIngress(self.id);
+  await resetIngressess(self.id);
 
   const options: CreateIngressOptions = {
     name: self.username,
