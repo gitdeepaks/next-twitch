@@ -6,12 +6,22 @@ import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/next-auth";
+import { siteConfig } from "@/config/site";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next Twitch",
-  description: "App for streaming using WebRTC and Next.js",
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  icons: [
+    {
+      url: "/public/spooky.svg",
+      href: "/public/spooky.svg",
+    },
+  ],
 };
 
 export default async function RootLayout({
