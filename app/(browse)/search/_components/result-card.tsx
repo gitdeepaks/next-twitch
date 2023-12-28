@@ -24,9 +24,9 @@ export const ResultCard = ({ data }: ResultCardProps) => {
         <div className="relative h-[9rem] w-[16rem]">
           <Thumbnail
             src={data.thumbnailUrl}
-            fallback={data.user.imageUrl}
+            fallback={data.user.image!}
             isLive={data.isLive}
-            username={data.user.username}
+            username={data.user.username!}
           />
         </div>
         <div className="space-y-1">

@@ -20,6 +20,8 @@ interface UserItemProps {
 export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
   const pathname = usePathname();
 
+  console.log({ imageUrl });
+
   const { collapsed } = useSidebar((state) => state);
 
   const href = `/${username}`;
