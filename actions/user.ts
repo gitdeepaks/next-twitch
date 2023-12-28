@@ -11,7 +11,13 @@ export const updateUser = async (value: Partial<User>) => {
 
     const validData = {
       bio: value.bio,
+      username: value.username,
+      image: value.image,
     };
+
+    if (validData.username === "" || validData.username === null) {
+      throw new Error("Username cannot be empty");
+    }
 
     const user = await db.user.update({
       where: { id: self.id },

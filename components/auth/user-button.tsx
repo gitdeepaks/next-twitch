@@ -10,6 +10,7 @@ import { UserAvatar } from "../user-avatar";
 import { getSelf } from "@/lib/auth-service";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
+import { SettingsModal } from "./settings-modal";
 
 export const UserButton = async ({ props }: any) => {
   const user = await getSelf();
@@ -25,6 +26,10 @@ export const UserButton = async ({ props }: any) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-60">
         <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
+        <SettingsModal
+          initiatlImage={user.image}
+          initiatalUsername={user.username}
+        />
         <DropdownMenuSeparator />
         <form
           action={async () => {

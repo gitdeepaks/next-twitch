@@ -11,7 +11,7 @@ const CommunityPage = async () => {
   const formattedData = blockedUsers.map((block) => ({
     ...block,
     userId: block.blocked.id,
-    imageUrl: block.blocked.imageUrl,
+    imageUrl: block.blocked.image,
     username: block.blocked.username,
     createdAt: format(new Date(block.blocked.createdAt), "dd/MM/yyyy"),
   }));

@@ -11,8 +11,8 @@ import { UnblockButton } from "./unblock-button";
 export type BlockedUser = {
   id: string;
   userId: string;
-  imageUrl: string;
-  username: string;
+  imageUrl: string | null;
+  username: string | null;
   createdAt: string;
 };
 
@@ -31,8 +31,8 @@ export const columns: ColumnDef<BlockedUser>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-x-4">
         <UserAvatar
-          username={row.original.username}
-          imageUrl={row.original.imageUrl}
+          username={row.original.username!}
+          imageUrl={row.original.imageUrl!}
         />
         <span>{row.original.username}</span>
       </div>
